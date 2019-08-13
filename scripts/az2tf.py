@@ -200,7 +200,6 @@ else:
 bt=bt2.rstrip('\n')
 bt=bt.rstrip('\r')
 print "Subscription:",sub
-print "Token:",bt
 headers = {'Authorization': 'Bearer ' + bt, 'Content-Type': 'application/json'}
 
 
@@ -209,8 +208,6 @@ headers = {'Authorization': 'Bearer ' + bt, 'Content-Type': 'application/json'}
 url="https://management.azure.com/subscriptions"
 params = {'api-version': '2014-04-01'}
 try: 
-    print headers
-    print params    
     r = requests.get(url, headers=headers, params=params)
     subs= r.json()["value"]
 except KeyError:
