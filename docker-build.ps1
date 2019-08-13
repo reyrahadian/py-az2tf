@@ -1,0 +1,1 @@
+docker build -t akqahub.azurecr.io/py-az2tf -f Dockerfile-win .

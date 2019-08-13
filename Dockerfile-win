@@ -1,0 +1,26 @@
+# escape=`
+FROM mcr.microsoft.com/windows/servercore:ltsc2019
+
+SHELL ["powershell", "-NoProfile", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"] 
+
+RUN Set-ExecutionPolicy Bypass -Scope Process -Force; `
+    iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')); `
+    choco install terraform --version 0.12.6 -y; `
+    choco install azure-cli --version 2.0.70 -y; `
+    choco install python2 --version 2.7.16 -y; `
+    choco install git --version 2.22.0 -y; `
+    New-Item -ItemType "directory" -Path "c:/workspace"
+
+WORKDIR /workspace
+
+ADD . .
+
+ENV PYTHONIOENCODING UTF-8
+
+RUN python.exe -m ensurepip; `
+    python.exe -m pip install requests adal;
+
+RUN New-Item -ItemType "directory" -Path "c:/src"
+
+CMD [ "c:/Program Files/Git/bin/bash.exe" ]
+

@@ -175,7 +175,7 @@ def printf(format, *values):
 #print(json.dumps(r.json(), indent=4, separators=(',', ': ')))
 
 print "Get Access Token from CLI"
-p = subprocess.Popen('az account get-access-token -o json', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+p = subprocess.Popen('az.cmd account get-access-token -o json', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 c=0
 for line in p.stdout.readlines():
     if "accessToken" in line:
@@ -198,7 +198,9 @@ else:
     sub=sub2.rstrip('\n')
 
 bt=bt2.rstrip('\n')
+bt=bt.rstrip('\r')
 print "Subscription:",sub
+print "Token:",bt
 headers = {'Authorization': 'Bearer ' + bt, 'Content-Type': 'application/json'}
 
 
@@ -207,6 +209,8 @@ headers = {'Authorization': 'Bearer ' + bt, 'Content-Type': 'application/json'}
 url="https://management.azure.com/subscriptions"
 params = {'api-version': '2014-04-01'}
 try: 
+    print headers
+    print params    
     r = requests.get(url, headers=headers, params=params)
     subs= r.json()["value"]
 except KeyError:

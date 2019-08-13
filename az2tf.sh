@@ -56,7 +56,7 @@ fi
 
 myrg=$g
 export ARM_SUBSCRIPTION_ID="$mysub"
-az account set -s $mysub
+az.cmd account set -s $mysub
 if [ $? -eq 1 ]; then exit; fi
 
 echo " "
@@ -88,7 +88,7 @@ rm -f terraform*.backup
 rm -f tf*.sh
 cp ../../stub/*.tf .
 
-pyc1="python2.7 ../../scripts/az2tf.py -s $mysub "
+pyc1="python.exe ../../scripts/az2tf.py -s $mysub "
 if [ "$g" != "" ]; then
     pyc2=" -g $g "
 else
