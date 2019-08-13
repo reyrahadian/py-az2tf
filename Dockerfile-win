@@ -20,7 +20,8 @@ ENV PYTHONIOENCODING UTF-8
 RUN python.exe -m ensurepip; `
     python.exe -m pip install requests adal;
 
-RUN New-Item -ItemType "directory" -Path "c:/src"
+RUN New-Item -ItemType "directory" -Path "c:/src"; `
+    New-Item -ItemType "directory" -Path "c:/workspace/generated"
 
 CMD [ "c:/Program Files/Git/bin/bash.exe" ]
 
